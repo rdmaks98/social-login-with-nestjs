@@ -14,11 +14,18 @@ export class AuthController {
     @Get('github/callback')
     @UseGuards(AuthGuard('github'))
     async githubLoginCallback(@Req() req: Request, @Res() res: Response) {
-        // Handles the GitHub authentication callback
-        // @ts-ignore
-        const { accessToken, profile } = req.user;
-        // You can perform any additional actions or redirect the user to a specific page
-        // after successful authentication
-        res.send({ accessToken, profile });
+        //  @ts-ignore
+        res.send(req.user);
+    }
+
+
+    @Get('/google')
+    @UseGuards(AuthGuard('google'))
+    async googleAuth(@Req() req: any) { }
+
+    @Get('google/callback')
+    @UseGuards(AuthGuard('google'))
+    googleAuthRedirect(@Req() req: any, @Res() res: any) {
+        res.send(req.user);
     }
 }
